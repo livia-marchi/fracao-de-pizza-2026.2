@@ -76,3 +76,41 @@ if (cut_scale > 1.0) {
     cut_scale -= 0.015; // Retorno suave ao tamanho original (1.0)
     if (cut_scale < 1.0) cut_scale = 1.0;
 }
+
+// Atualiza a interpolação de hover_offset de cada fatia para a pizza e prato
+var mouse_dist_pizza = point_distance(x, y, mouse_x, mouse_y);
+var mouse_ang_pizza = point_direction(x, y, mouse_x, mouse_y);
+var hover_pizza_idx = -1;
+if (anim_state == "idle" && mouse_dist_pizza <= sprite_width / 2) {
+    hover_pizza_idx = floor(mouse_ang_pizza / slice_size);
+}
+
+var hover_plate_idx = -1;
+if (instance_exists(obj_pizza_plate) && obj_pizza_plate.anim_state == "idle") {
+    var px = obj_pizza_plate.x;
+    var py = obj_pizza_plate.y;
+    var mouse_dist_plate = point_distance(px, py, mouse_x, mouse_y);
+    var mouse_ang_plate = point_direction(px, py, mouse_x, mouse_y);
+    if (mouse_dist_plate <= obj_pizza_plate.sprite_width / 2) {
+        hover_plate_idx = floor(mouse_ang_plate / slice_size);
+    }
+}
+
+for (var i = 0; i < array_length(slices); i++) {
+    if (!struct_exists(slices[i], "hover_offset")) {
+        slices[i].hover_offset = 0.0;
+    }
+    
+    var target_offset = 0.0;
+    
+    // Se a fatia estiver na pizza e a pizza estiver hovered
+    if (slices[i].visible && !slices[i].animated && i == hover_pizza_idx) {
+        target_offset = 12.0;
+    }
+    // Se a fatia estiver no prato e o prato estiver hovered
+    else if (!slices[i].visible && slices[i].onplate && !slices[i].animated && i == hover_plate_idx) {
+        target_offset = 12.0;
+    }
+    
+    slices[i].hover_offset += (target_offset - slices[i].hover_offset) * 0.25;
+}
