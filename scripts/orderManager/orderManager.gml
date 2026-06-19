@@ -84,7 +84,7 @@ function check_and_complete_order() {
     
 	if (!found){
 		 // Entrega errada! (Perde um pouco de dinheiro)
-            money_remove(1.50, true);
+            money_remove(3.00, true);
             
             // Iniciar animação do prato (o prato se limpará ao sair da tela)
             with (obj_pizza_plate) {
