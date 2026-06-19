@@ -2,8 +2,8 @@
 var cx = x;
 var cy = y;
 
-// Desenha o prato primeiro
-draw_sprite(spr_plate, 0, cx, cy);
+// Desenha o prato primeiro (aplicando a escala da instância para manter fidelidade de tamanho)
+draw_sprite_ext(spr_plate, 0, cx, cy, image_xscale, image_yscale, 0, c_white, 1);
 
 if (!instance_exists(obj_pizza)) exit;
 

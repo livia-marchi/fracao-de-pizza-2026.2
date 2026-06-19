@@ -77,28 +77,30 @@ function update_gui_stats(){
 	var _stage_struct = flexpanel_node_get_struct(_stage_panel);
 	var _stage_text_el = _stage_struct.layerElements[0].elementId;
 	
-	// Oculta o texto original do RoomUI para desenharmos via código com contorno
-	layer_text_text(_stage_text_el, "");
-	
-	// Armazena a posição calculada do painel do Dia
-	var _stage_pos = flexpanel_node_layout_get_position(_stage_panel, false);
-	global.hud_stage_x = _stage_pos.left;
-	global.hud_stage_y = _stage_pos.top;
-	global.hud_stage_w = _stage_pos.width;
-	global.hud_stage_h = _stage_pos.height;
-	
 	// Meta
 	var _goal_panel = flexpanel_node_get_child(_layer_panel, "goal")
 	var _goal_struct = flexpanel_node_get_struct(_goal_panel);
 	var _goal_text_el = _goal_struct.layerElements[0].elementId;
 	
-	// Oculta o texto original do RoomUI
-	layer_text_text(_goal_text_el, "");
+	// Armazena a posição calculada do painel do Dia (apenas na primeira chamada para evitar colapso do flexpanel)
+	if (!variable_global_exists("hud_stage_x") || global.hud_stage_x == 0) {
+		var _stage_pos = flexpanel_node_layout_get_position(_stage_panel, false);
+		global.hud_stage_x = _stage_pos.left;
+		global.hud_stage_y = _stage_pos.top;
+		global.hud_stage_w = _stage_pos.width;
+		global.hud_stage_h = _stage_pos.height;
+	}
 	
 	// Armazena a posição calculada do painel da Meta
-	var _goal_pos = flexpanel_node_layout_get_position(_goal_panel, false);
-	global.hud_goal_x = _goal_pos.left;
-	global.hud_goal_y = _goal_pos.top;
-	global.hud_goal_w = _goal_pos.width;
-	global.hud_goal_h = _goal_pos.height;
+	if (!variable_global_exists("hud_goal_x") || global.hud_goal_x == 0) {
+		var _goal_pos = flexpanel_node_layout_get_position(_goal_panel, false);
+		global.hud_goal_x = _goal_pos.left;
+		global.hud_goal_y = _goal_pos.top;
+		global.hud_goal_w = _goal_pos.width;
+		global.hud_goal_h = _goal_pos.height;
+	}
+	
+	// Oculta o texto original do RoomUI para desenharmos via código com contorno
+	layer_text_text(_stage_text_el, "");
+	layer_text_text(_goal_text_el, "");
 }
