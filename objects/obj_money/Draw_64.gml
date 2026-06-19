@@ -30,7 +30,8 @@ draw_text_outline_transformed(draw_x - 10, draw_y + 5, moneytext, hud_color, c_b
 
 // Desenha Dia e Meta caso a stage_manager já tenha atualizado e salvo as posições
 if (variable_global_exists("hud_stage_x")) {
-    draw_set_font(global.font_pixel_medium);
+    //TODO: importar fonte corretamente
+    //draw_set_font(global.font_pixel_medium);
     draw_set_valign(fa_top);
     
     // Alinhamento à esquerda, igual ao layout original do RoomUI
