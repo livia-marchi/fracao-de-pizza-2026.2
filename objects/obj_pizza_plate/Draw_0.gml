@@ -61,7 +61,7 @@ for (var i = 0; i < _num_slices; i++)
 
 draw_set_color(c_red);
 
-var radius = sprite_width * 0.5;
+var radius = (sprite_get_width(spr_plate) * image_xscale) / 2;
 
 for (var i = 0; i < _num_slices; i++)
 {

@@ -4,7 +4,8 @@ if (anim_state != "idle") exit;
 
 // Ignora clicks fora da pizza
 var _dist = point_distance(x, y, mouse_x, mouse_y);
-if (_dist > sprite_width / 2) exit;
+var _plate_radius = (sprite_get_width(spr_plate) * image_xscale) / 2;
+if (_dist > _plate_radius) exit;
 
 // Encontra a direção do clique com relação ao centro da pizza
 var _ang = point_direction(x, y, mouse_x, mouse_y);

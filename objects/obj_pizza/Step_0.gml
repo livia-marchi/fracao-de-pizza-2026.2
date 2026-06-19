@@ -91,7 +91,8 @@ if (instance_exists(obj_pizza_plate) && obj_pizza_plate.anim_state == "idle") {
     var py = obj_pizza_plate.y;
     var mouse_dist_plate = point_distance(px, py, mouse_x, mouse_y);
     var mouse_ang_plate = point_direction(px, py, mouse_x, mouse_y);
-    if (mouse_dist_plate <= obj_pizza_plate.sprite_width / 2) {
+    var plate_radius = (sprite_get_width(spr_plate) * obj_pizza_plate.image_xscale) / 2;
+    if (mouse_dist_plate <= plate_radius) {
         hover_plate_idx = floor(mouse_ang_plate / slice_size);
     }
 }

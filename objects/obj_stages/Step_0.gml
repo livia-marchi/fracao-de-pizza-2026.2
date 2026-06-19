@@ -23,7 +23,8 @@ if (!show_hand && instance_exists(obj_pizza_plate) && obj_pizza_plate.anim_state
     var plx = obj_pizza_plate.x;
     var ply = obj_pizza_plate.y;
     var dist = point_distance(plx, ply, mouse_x, mouse_y);
-    if (dist <= obj_pizza_plate.sprite_width / 2) {
+    var plate_radius = (sprite_get_width(spr_plate) * obj_pizza_plate.image_xscale) / 2;
+    if (dist <= plate_radius) {
         // Encontra a direção e o índice do pedaço
         var ang = point_direction(plx, ply, mouse_x, mouse_y);
         var idx = floor(ang / obj_pizza.slice_size);
