@@ -1,16 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_stages",
+  "%Name":"obj_confetti",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_stages",
+  "name":"obj_confetti",
   "overriddenProperties":[],
   "parent":{
-    "name":"controller",
-    "path":"folders/objects/controller.yy",
+    "name":"ui",
+    "path":"folders/objects/ui.yy",
   },
   "parentObjectId":null,
   "persistent":false,

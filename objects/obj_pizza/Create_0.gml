@@ -19,3 +19,13 @@ function reset_pizza() {
 }
 
 reset_pizza();
+
+original_x = x;
+original_y = y;
+anim_state = "idle";
+anim_speed = 25;
+peel_y = room_height + 250;
+
+// Efeito de Cortado
+cut_scale = 1.0;
+cut_effect_timer = 0;
