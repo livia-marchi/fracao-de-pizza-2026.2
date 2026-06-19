@@ -14,6 +14,9 @@ if (shake > 0) {
     shake = 0;
 }
 
+// Lerp scale back to 1.0
+scale = lerp(scale, 1.0, 0.1);
+
 if(money < 0) {
 	game_over();
 }

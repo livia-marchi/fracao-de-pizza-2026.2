@@ -47,8 +47,17 @@ function check_and_complete_order() {
         with (best_note) {
             // Entrega correta!
             concluido = true;
-            cor_flash = c_lime;
-            flash_timer = 60; // 1 segundo de flash
+            flash_timer = 30; // 0.5s bounce
+            
+            // Spawn Confetti burst
+            repeat (25) {
+                instance_create_layer(x, y, "Instances", obj_confetti);
+            }
+            
+            // Trigger Money UI bounce
+            if (instance_exists(obj_money)) {
+                obj_money.scale = 1.5;
+            }
             
             // Cálculo do dinheiro baseado no tempo (balanço: não linear para facilitar)
             // Adicionamos +2 segundos de "lambuja" para compensar o tempo de animação/reação
@@ -68,14 +77,20 @@ function check_and_complete_order() {
         with (obj_pizza_plate) {
             anim_state = "serving";
         }
+        with (obj_pizza) {
+            anim_state = "serving";
+        }
     }
     
 	if (!found){
 		 // Entrega errada! (Perde um pouco de dinheiro)
-            money_remove(2.50, true);
+            money_remove(1.50, true);
             
             // Iniciar animação do prato (o prato se limpará ao sair da tela)
             with (obj_pizza_plate) {
+                anim_state = "serving";
+            }
+            with (obj_pizza) {
                 anim_state = "serving";
             }
 	}

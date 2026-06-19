@@ -2,6 +2,22 @@
 var cx = x;
 var cy = y;
 
+if (peel_y < room_height + 400) {
+    // Desenha uma pá de pizza (placeholder) atrás da pizza
+    var peel_radius = sprite_width * 0.55;
+    var handle_w = 30;
+    
+    draw_set_color(make_color_rgb(180, 130, 80)); // Cor de madeira
+    
+    // Cabo da pá (vai até o fundo da tela)
+    draw_roundrect(cx - handle_w/2, peel_y, cx + handle_w/2, peel_y + 1500, false);
+    
+    // Base da pá
+    draw_circle(cx, peel_y, peel_radius, false);
+    
+    draw_set_color(c_white);
+}
+
 var _num_slices = array_length(slices);
 
 for (var i = 0; i < _num_slices; i++)
@@ -21,14 +37,24 @@ for (var i = 0; i < _num_slices; i++)
     shader_set_uniform_f(u_center_x, cx);
     shader_set_uniform_f(u_center_y, cy);
 	
-    draw_sprite(sprite_index, image_index, cx, cy);
+	// Desenha a fatia escalada pelo efeito de corte
+    draw_sprite_ext(sprite_index, image_index, cx, cy, cut_scale, cut_scale, 0, c_white, 1);
 
     shader_reset();
 }
 
-draw_set_color(c_red);
+// Configura o visual do corte (cor e espessura)
+var line_color = c_red;
+var line_width = 1;
+if (cut_effect_timer > 0) {
+    var t = cut_effect_timer / 15;
+    line_color = merge_color(c_red, c_white, t);
+    line_width = 1 + 3 * t; // Fica mais grosso e depois afina
+}
 
-var radius = sprite_width * 0.5;
+draw_set_color(line_color);
+
+var radius = sprite_width * 0.5 * cut_scale;
 
 for (var i = 0; i < _num_slices; i++)
 {
@@ -43,7 +69,11 @@ for (var i = 0; i < _num_slices; i++)
     var x2 = cx + lengthdir_x(radius, ang);
     var y2 = cy + lengthdir_y(radius, ang);
 	
-	// Desenha os cortes na pizza
-    draw_line(cx, cy, x2, y2);
+	// Desenha os cortes na pizza (com espessura se estiver no timer de corte)
+    if (line_width > 1) {
+        draw_line_width(cx, cy, x2, y2, line_width);
+    } else {
+        draw_line(cx, cy, x2, y2);
+    }
 }
 

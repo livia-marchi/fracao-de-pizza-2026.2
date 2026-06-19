@@ -7,7 +7,7 @@ function reset_plate() {
 	original_x = x;
 	original_y = y;
 	anim_state = "idle"; // idle, serving, returning
-	anim_speed = 25;
+	anim_speed = 18;
 }
 
 reset_plate();

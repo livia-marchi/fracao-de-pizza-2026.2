@@ -1,14 +1,11 @@
 var _m = matrix_get(matrix_world);
-matrix_set(matrix_world, matrix_build(x, y, 0, 0, 0, rot, 1, 1, 1));
+matrix_set(matrix_world, matrix_build(x, y, 0, 0, 0, rot, scale_x, scale_y, 1));
 
 var progresso = (tempo_total > 0) ? (tempo_restante / tempo_total) : 0;
 
 // Cor do flash sobreposta ao sprite
 var _blend = c_white;
-if (flash_timer > 0) {
-    // Pisca alternando entre branco e verde
-    _blend = (flash_timer mod 4 < 2) ? c_lime : c_white;
-} else if (caindo && falhado) {
+if (caindo && falhado) {
     _blend = c_red;
 }
 
@@ -37,32 +34,35 @@ else if (progresso > 0.25)
 else
     cor_timer = c_red;
 
+// Background track (full circle outline)
 draw_set_color(c_ltgray);
-draw_set_alpha(alpha * 0.6);
-draw_circle(cx, cy, raio, false);
-
-draw_set_alpha(alpha);
-draw_set_color(cor_timer);
-var passos = 48;
-for (var i = 0; i < passos; i++) {
-    var ang1 = 90 - (i / passos) * 360 * progresso;
-    var ang2 = 90 - ((i + 1) / passos) * 360 * progresso;
-    draw_triangle(
-        cx, cy,
-        cx + dcos(ang1) * raio, cy - dsin(ang1) * raio,
-        cx + dcos(ang2) * raio, cy - dsin(ang2) * raio,
-        false
-    );
+draw_set_alpha(alpha * 0.4);
+var track_steps = 32;
+var prev_tx = cx + dcos(0) * raio;
+var prev_ty = cy - dsin(0) * raio;
+for (var i = 1; i <= track_steps; i++) {
+    var ang = (i / track_steps) * 360;
+    var next_tx = cx + dcos(ang) * raio;
+    var next_ty = cy - dsin(ang) * raio;
+    draw_line_width(prev_tx, prev_ty, next_tx, next_ty, 5);
+    prev_tx = next_tx;
+    prev_ty = next_ty;
 }
 
-draw_set_color(c_white);
-draw_circle(cx, cy, raio * 0.58, false);
-
-draw_set_color(cor_timer);
+// Active timer arc
 draw_set_alpha(alpha);
-draw_set_halign(fa_center);
-draw_set_valign(fa_middle);
-draw_text(cx, cy, string(ceil(tempo_restante)));
+draw_set_color(cor_timer);
+var passos = 32;
+var prev_x = cx + dcos(90) * raio;
+var prev_y = cy - dsin(90) * raio;
+for (var i = 1; i <= passos; i++) {
+    var ang = 90 - (i / passos) * 360 * progresso;
+    var next_x = cx + dcos(ang) * raio;
+    var next_y = cy - dsin(ang) * raio;
+    draw_line_width(prev_x, prev_y, next_x, next_y, 5);
+    prev_x = next_x;
+    prev_y = next_y;
+}
 
 draw_set_alpha(1);
 matrix_set(matrix_world, _m);
