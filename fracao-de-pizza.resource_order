@@ -29,6 +29,7 @@
     {"name":"draw_text_outline_color","order":2,"path":"scripts/draw_text_outline_color/draw_text_outline_color.yy",},
     {"name":"orderManager","order":1,"path":"scripts/orderManager/orderManager.yy",},
     {"name":"stage_manager","order":3,"path":"scripts/stage_manager/stage_manager.yy",},
+    {"name":"spr_background","order":8,"path":"sprites/spr_background/spr_background.yy",},
     {"name":"spr_clock","order":3,"path":"sprites/spr_clock/spr_clock.yy",},
     {"name":"spr_cutboard","order":5,"path":"sprites/spr_cutboard/spr_cutboard.yy",},
     {"name":"spr_menu_box","order":6,"path":"sprites/spr_menu_box/spr_menu_box.yy",},
